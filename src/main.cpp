@@ -1,33 +1,63 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
+// ultrasonic
 #define EchoPin 7
 #define TriggerPin 6
+
+// driver's pump
+#define PWM_PIN 11
+#define INPUT_1 12
+#define INPUT_2 10
+
+// bluetooth
+SoftwareSerial Bluetooth(3, 2); // Rx Tx password = 7580
 
 /*working variables*/
 unsigned long lastTime;
 double errSum, lastErr;
-double Input, Output;
-double Setpoint = 5; // reference in cm of water's level 
-double kp = 1, ki , kd;
+//double Input = 0, Output = 0;
+double PWM_output = 0;
+double reference = 5; // reference in cm of water's level 
+double kp = 2, ki = 0 , kd = 0;
 
+//
 int CalculateDistance(int trigger_pin, int echo_pin); //forward declartion 
+double Compute(double setpoint, int input);
 
 /// @brief Code to run once
 void setup() 
 {
   Serial.begin(9600);
+
+  // bluetooth
+  Bluetooth.begin(9600);
+  
+  // ultrasonic
   pinMode(TriggerPin, OUTPUT);
   pinMode(EchoPin, INPUT);
+
+  // driver's pump
+  pinMode(PWM_PIN, OUTPUT);
+  pinMode(INPUT_1, OUTPUT);
+  pinMode(INPUT_2, OUTPUT);
+  digitalWrite(INPUT_1, LOW);
+  digitalWrite(INPUT_2, HIGH);
+
 }
 
 /// @brief Function to repeat forever
 void loop() 
 {
   int measurement = CalculateDistance(TriggerPin, EchoPin);
-  Serial.print("Distancia: ");
-  Serial.println(measurement);
-  delay(1000);
+  Bluetooth.print("Distancia: ");
+  Bluetooth.println(measurement);
+  
+  PWM_output = Compute(reference, measurement);
+  analogWrite(PWM_PIN, PWM_output);
+
+  Bluetooth.print("PWM_output = ");
+  Bluetooth.println(PWM_output);
 }
 
 /// @brief Calculate the level of the water
@@ -48,23 +78,37 @@ int CalculateDistance(int trigger_pin, int echo_pin)
   return distanceCm;
 }
 
-void Compute()
+/// @brief Output the PWM signal control that a PID algorithm compute
+double Compute(double setpoint, int input)
 {
    /*How long since we last calculated*/
    unsigned long now = millis();
    double timeChange = (double)(now - lastTime);
+
+   double output = 0;
   
    /*Compute all the working error variables*/
-   double error = Setpoint - Input;
+   double error = -(setpoint - input);
    errSum += (error * timeChange);
    double dErr = (error - lastErr) / timeChange;
   
    /*Compute PID Output*/
-   Output = kp * error + ki * errSum + kd * dErr;
+   output = kp * error + ki * errSum + kd * dErr;
   
    /*Remember some variables for next time*/
    lastErr = error;
    lastTime = now;
+
+   if(output > 200)
+   {
+    output = 200;
+   }
+   else if(output < 50)
+   {
+    output = 50;
+   }
+
+   return output;
 }
   
 void SetTunings(double Kp, double Ki, double Kd)
