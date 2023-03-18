@@ -19,7 +19,7 @@ double errSum, lastErr;
 //double Input = 0, Output = 0;
 double PWM_output = 0;
 double reference = 5; // reference in cm of water's level 
-double kp = 2, ki = 0 , kd = 0;
+double kp = 30, ki = 0 , kd = 0;
 
 //
 int CalculateDistance(int trigger_pin, int echo_pin); //forward declartion 
