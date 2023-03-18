@@ -18,7 +18,7 @@ unsigned long lastTime;
 double errSum, lastErr;
 //double Input = 0, Output = 0;
 double PWM_output = 0;
-double reference = 5; // reference in cm of water's level 
+double reference = 10; // reference in cm of water's level 
 double kp = 30, ki = 0 , kd = 0;
 
 //
@@ -41,8 +41,8 @@ void setup()
   pinMode(PWM_PIN, OUTPUT);
   pinMode(INPUT_1, OUTPUT);
   pinMode(INPUT_2, OUTPUT);
-  digitalWrite(INPUT_1, LOW);
-  digitalWrite(INPUT_2, HIGH);
+  digitalWrite(INPUT_1, LOW); // direction of the L298 driver
+  digitalWrite(INPUT_2, HIGH); // direction of the L298 driver
 
 }
 
@@ -50,9 +50,12 @@ void setup()
 void loop() 
 {
   int measurement = CalculateDistance(TriggerPin, EchoPin);
+  measurement = 17 - measurement; // 17 cm is the height of the tank, then the label of the water is: (17 - the measurement)
+
   Bluetooth.print("Distancia: ");
   Bluetooth.println(measurement);
   
+
   PWM_output = Compute(reference, measurement);
   analogWrite(PWM_PIN, PWM_output);
 
@@ -88,7 +91,7 @@ double Compute(double setpoint, int input)
    double output = 0;
   
    /*Compute all the working error variables*/
-   double error = -(setpoint - input);
+   double error = (setpoint - input);
    errSum += (error * timeChange);
    double dErr = (error - lastErr) / timeChange;
   
