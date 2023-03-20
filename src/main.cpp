@@ -18,11 +18,11 @@ unsigned long lastTime;
 double errSum, lastErr;
 //double Input = 0, Output = 0;
 double PWM_output = 0;
-double reference = 10; // reference in cm of water's level 
-double kp = 60, ki = 0.002 , kd = 0;
+double reference = 5; // reference in cm of water's level 
+double kp = 10, ki = 0.002 , kd = 0;
 
 //
-int CalculateDistance(int trigger_pin, int echo_pin); //forward declartion 
+double CalculateDistance(int trigger_pin, int echo_pin); //forward declartion 
 double Compute(double setpoint, int input);
 
 /// @brief Code to run once
@@ -49,7 +49,7 @@ void setup()
 /// @brief Function to repeat forever
 void loop() 
 {
-  int measurement = CalculateDistance(TriggerPin, EchoPin);
+  double measurement = CalculateDistance(TriggerPin, EchoPin);
   measurement = 17 - measurement; // 17 cm is the height of the tank, then the label of the water is: (17 - the measurement)
 
   Bluetooth.print("Distancia: ");
@@ -64,10 +64,10 @@ void loop()
 }
 
 /// @brief Calculate the level of the water
-int CalculateDistance(int trigger_pin, int echo_pin)
+double CalculateDistance(int trigger_pin, int echo_pin)
 {
-  long duration;
-  int distanceCm;
+  double duration;
+  double distanceCm;
    
   digitalWrite(trigger_pin, LOW);  //para generar un pulso limpio ponemos a LOW 4us
   delayMicroseconds(4);
