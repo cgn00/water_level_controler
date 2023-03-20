@@ -107,9 +107,9 @@ double Compute(double setpoint, int input)
    {
     output = 240;
    }
-   else if(output < 50)
+   else if(output < 130)
    {
-    output = 50;
+    output = 0;
    }
 
    return output;
