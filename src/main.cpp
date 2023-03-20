@@ -77,7 +77,8 @@ double CalculateDistance(int trigger_pin, int echo_pin)
   
   duration = pulseIn(echo_pin, HIGH);  //medimos el tiempo entre pulsos, en microsegundos
   
-  distanceCm = duration * 10 / 292/ 2;   //convertimos a distancia, en cm
+  distanceCm = duration * 10 / 292/ 2;  //convertimos a distancia, en cm
+  distanceCm -=1 ; // to calibrate the mistake of the measurement
   return distanceCm;
 }
 

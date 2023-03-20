@@ -1,3 +1,5 @@
-Con ref=10cm kp=60, ki=0.002, kd=0:
-	Pico máximo demasiado elevado pero si se reinicia logra eee=0
+Prueba 1: power_suply=12V ref=10cm, kp=60, ki=0.002, kd=0:
+	  Observaciones: Pico máximo demasiado elevado(más de 15cms) pero si se reinicia logra eee=0
 
+Prueba 2: power_suply=12V ref= 5cm, kp = 10, ki = 0.002 , kd = 0
+	  Observaciones: Pico máximo 7cm, logra eee=0 en un tiempo very very very long. Con PWM<130 no sube agua.
