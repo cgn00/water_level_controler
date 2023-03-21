@@ -1,5 +1,39 @@
 Prueba 1: power_suply=12V ref=10cm, kp=60, ki=0.002, kd=0:
 	  Observaciones: Pico máximo demasiado elevado(más de 15cms) pero si se reinicia logra eee=0
 
-Prueba 2: power_suply=12V ref= 5cm, kp = 10, ki = 0.002 , kd = 0
+*****Prueba 2: power_suply=12V ref= 5cm, kp = 10, ki = 0.002 , kd = 0
 	  Observaciones: Pico máximo 7cm, logra eee=0 en un tiempo very very very long. Con PWM<130 no sube agua.
+
+Prueba 3: power_suply=12V ref= 5cm, kp = 10, ki = 0.002 , kd = 0.1
+          Observaciones: Pico máximo 7cm, oscila demasiado y demora mucho más que la prueba anterior para un eee=0
+
+Prueba 4: reference = 5 kp = 10, ki = 0.0005 , kd = 0.5
+	  Observaciones: very very very slow
+
+***Prueba 5: reference = 5 kp = 20, ki = 0.0005 , kd = 0.5
+	  Observaciones: very very very slow pero menos q la prueba anterior. Positivo no genera un máximo sobre impulso y logra eee=0
+
+Prueba 6: reference = 5 kp = 20, ki = 0.0008 , kd = 0.7
+	  Observaciones: very very very slow pero menos q la prueba anterior. Positivo no genera un máximo sobre impulso y logra eee=0. 
+	  Negativo se demoró más que la prueba anterior
+
+Prueba 7: power_suply=12V reference = 5 kp = 20, ki = 0.002 , kd = 0
+	  Observaciones: Pico máximo 7cm, logra eee=0 en un tiempo no muy largo.
+
+Prueba 8: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0
+	  Observaciones: Demora mucho en reaccionar. Pico máximo de 7 muy lento.
+
+*****Prueba 9: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0.001
+	  Observaciones: Demora mucho en reaccionar pero menos q en la prueba anterior. Pico máximo de 7, tiempo de estabilización lento.
+
+******Prueba 10: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0.003
+	  Observaciones: Demora muchísimo menos q antes en reaccionar. Pico máximo de 7, tiempo de estabilización lento.
+
+*******Prueba 11: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0.005
+	  Observaciones: 35s en reaccionar. Pico máximo de 7 pero no tan constante mejor q antes, tiempo de estabilización lento.
+
+*******Prueba 12: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0.01
+	  Observaciones: 33s en reaccionar. Pico máximo de 6.9 pero no tan constante mejor q antes, tiempo de estabilización lento.
+
+***********Prueba 13: power_suply=12V reference = 5 kp = 10, ki = 0.001 , kd = 0.06
+	  Observaciones: 33s en reaccionar. Pico máximo de 6.5 muchísimo mejor q antes, tiempo de estabilización lento. 
