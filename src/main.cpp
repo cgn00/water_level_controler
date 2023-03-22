@@ -19,7 +19,7 @@ double errSum, lastErr;
 //double Input = 0, Output = 0;
 double PWM_output = 0;
 double reference = 5; // reference in cm of water's level 
-double kp = 10, ki = 0.001 , kd = 0.1;
+double kp = 10, ki = 0.001 , kd = 0.06;
 
 //
 double CalculateDistance(int trigger_pin, int echo_pin); //forward declartion 
@@ -78,7 +78,7 @@ double CalculateDistance(int trigger_pin, int echo_pin)
   duration = pulseIn(echo_pin, HIGH);  //medimos el tiempo entre pulsos, en microsegundos
   
   distanceCm = duration * 10 / 292/ 2;  //convertimos a distancia, en cm
-  distanceCm -=1 ; // to calibrate the mistake of the measurement
+  distanceCm -= 2 ; // to calibrate the mistake of the measurement
   return distanceCm;
 }
 
