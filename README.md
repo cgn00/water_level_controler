@@ -12,6 +12,3 @@ Water Level Controller can be used to control the water level in any tank, from 
 
 The code provided in this repository includes basic examples for controlling the water pump and reading sensor data. These examples can be modified and expanded upon to create more complex water level control behaviors.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
